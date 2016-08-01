@@ -1,0 +1,9 @@
+quiz_app/*/migrations/*
+quiz_app/quiz_app/server_config.py
+*.pyc
+.*.swp
+.*.rdb
+.*.swo
+*.DS_Store
+*.log
+.idea/
