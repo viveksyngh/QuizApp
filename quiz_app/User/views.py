@@ -13,6 +13,7 @@ from models import User
 
 
 class Register(View):
+    """Register a user."""
 
     def __init__(self):
         
@@ -26,7 +27,8 @@ class Register(View):
 
     def post(self, request):
         req_data = request.POST
-        reqd_params = ['first_name', 'last_name', 'email_id', 'mobile_no', 'password']
+        reqd_params = ['first_name', 'last_name', 'email_id', 
+                      'mobile_no', 'password']
         
         is_valid, res_str = validate_params(req_data, reqd_params)
         if not is_valid:
@@ -54,6 +56,7 @@ class Register(View):
 
 
 class Login(View):
+    """View to login."""
 
     def __init__(self):
 
@@ -75,17 +78,21 @@ class Login(View):
             return send_400(self.response)
 
         try:
+            # Check if email id is registered or not.
             user = User.objects.get(email_id=req_data.get('email_id'))
         except User.DoesNotExist:
             self.response["message"] = "Email id is not registered."
             return send_404(self.response)
         else:
+            # Match the hashed value of stored password and enterd password.
             if user.password != gen_password_hash(req_data.get("password")):
                 self.response["message"] = "Password is incorrect."
                 return send_200(self.response)
-            
+
+            # Creating a token in redis to initaite the session
             create_token(user.user_id, uuid.uuid1(), 900)
             self.response["message"] = "Logged in successfully."
+            # Sending cid and token for future communication
             self.response["result"]["cid"] = user.user_id
             self.response["result"]["token"] = get_token(user.user_id)
         return send_200(self.response)
