@@ -2,7 +2,7 @@ import hashlib
 from django.http.response import JsonResponse
 from datetime import datetime, timedelta
 import json
-
+from redis_utils import get_token, refresh_token
 
 def gen_password_hash(passwd):
     return str(hashlib.sha256(passwd).hexdigest())
@@ -52,3 +52,32 @@ def send_410(data):
 
 def send_403(data):
     return _send(data, 403) 
+
+
+def login(func):
+    def inner(request, *args, **kwargs):
+        response = {
+            'message': '',
+            'result': {}
+        }
+        request_method = request.method
+        param_dict = request.get(request_method)
+        if 'cid' not in param_dict:
+            response["message"] = "Parameter missing cid."
+            return send_400(response)
+
+        if 'token' not in param_dict:
+            response["message"] = "Parameter missing token"
+            return send_400(response)
+        
+        cid = response.get('cid')
+        token = response.get('token')
+
+        stored_id = get_token(token)
+        if (not stored_id < 0) and (stored_id == cid):
+            refresh_token(token)
+        else:
+            response["message"] = "Unauthorized"
+            return send_401(response)
+        return func(request, *args, **kwargs)
+    return inner

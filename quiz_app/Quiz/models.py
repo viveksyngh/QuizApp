@@ -12,7 +12,7 @@ class Question(models.Model):
     question_id = models.AutoField(primary_key=True)
     question_text = models.TexField(max_length=300)
     user = models.ForeignKey(User, related_name='user')
-    question_url = models.URLField(max_length=1000)
+    question_url = models.URLField(max_length=1000, null=True, blank=True)
 
     def __unicode__(self):
         return self.question_id

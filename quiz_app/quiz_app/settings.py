@@ -134,4 +134,5 @@ MEDIA_URL = '/media/'
 REDIS_HOST_NAME = 'localhost'
 REDIS_PORT_NAME = 6379
 DB_NAME = 0
+API_HOME = "http://127.0.0.1:8000/" 
 
