@@ -26,7 +26,7 @@ SECRET_KEY = '@)^btw9c)$4e%!@8(!b+-cbe4470g(aauc*6i#5rnb2&!sz$0t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'quiz_app.urls'
@@ -135,4 +136,15 @@ REDIS_HOST_NAME = 'localhost'
 REDIS_PORT_NAME = 6379
 DB_NAME = 0
 API_HOME = "http://127.0.0.1:8000/" 
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOW_HEADERS = (
+#     'x-requested-with',
+#     'content-type',
+#     'accept',
+#     'origin',
+#     'authorization',
+#     'x-csrftoken',
+# )
 

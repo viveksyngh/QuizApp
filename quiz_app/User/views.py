@@ -2,7 +2,8 @@ from django.shortcuts import render
 from quiz_app.utils import(validate_params,
                                     gen_password_hash,
                                     send_400,
-                                    send_200)
+                                    send_200,
+                                    send_404)
 import uuid
 from quiz_app.redis_utils import (create_token,
                                   get_token)
@@ -52,6 +53,7 @@ class Register(View):
             self.response["result"]["user_id"] = user.user_id
         else:
             self.response["message"] = "Email already registered.Try to login."
+            return send_400(self.response)
         return send_200(self.response)
 
 
@@ -81,13 +83,13 @@ class Login(View):
             # Check if email id is registered or not.
             user = User.objects.get(email_id=req_data.get('email_id'))
         except User.DoesNotExist:
-            self.response["message"] = "Email id is not registered."
+            self.response["message"] = "Email id is not registered. Please register."
             return send_404(self.response)
         else:
             # Match the hashed value of stored password and enterd password.
             if user.password != gen_password_hash(req_data.get("password")):
                 self.response["message"] = "Password is incorrect."
-                return send_200(self.response)
+                return send_400(self.response)
 
             # Creating a token in redis to initaite the session
             create_token(user.user_id, uuid.uuid1(), 900)
