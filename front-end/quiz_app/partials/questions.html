@@ -1,0 +1,38 @@
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <a class="navbar-brand" href="#/">Quiz App</a>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/">Home</a></li>
+            <li class="active"><a href="#/question">Questions</a></li>
+            <li><a href="#/votes">Votes</a></li>
+          </ul>
+          </ul>
+           <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/logout">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+    </nav>
+    <div class="container">
+    <br/>
+    <br/>
+      <ol>
+        <li ng-repeat="question in questions">
+          <div class="question-block">
+              <strong><span>Question: {{question.question_text}}</span></strong>
+              <br/>
+              <br/>
+              <strong><span>Options:</span></strong>
+              <div class="row">
+                <div class="options col-sm-6">       
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="option in question.options">
+                      <span class="badge">14</span>
+                        {{option.option}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+    </div> <!--container -->

@@ -10,7 +10,7 @@ class Question(models.Model):
     """Model to store information about a question."""
 
     question_id = models.AutoField(primary_key=True)
-    question_text = models.TexField(max_length=300)
+    question_text = models.TextField(max_length=300)
     user = models.ForeignKey(User, related_name='user')
     question_url = models.URLField(max_length=1000, null=True, blank=True)
 
@@ -39,7 +39,7 @@ class Option(models.Model):
     question = models.ForeignKey(Question, related_name='question')
 
     def __unicode__(self):
-        return str(self.question_id) + ' ' + self.question_text
+        return str(self.question_id) + ' ' + self.option_text
 
     def serializer(self):
         option = {}
@@ -52,7 +52,7 @@ class Vote(models.Model):
     """Model to store votes given by users"""
     vote_id = models.AutoField(primary_key=True)
     option = models.ForeignKey(Option, related_name='option')
-    user = models.ForeignKey(User, related_name='user')
+    user = models.ForeignKey(User, related_name='user_voted')
 
     def __unicode__(self):
-        return self.vote_id
+        return str(self.vote_id)

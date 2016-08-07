@@ -55,13 +55,13 @@ def send_403(data):
 
 
 def login(func):
-    def inner(request, *args, **kwargs):
+    def inner(self, request, *args, **kwargs):
         response = {
             'message': '',
             'result': {}
         }
         request_method = request.method
-        param_dict = request.get(request_method)
+        param_dict = getattr(request, request_method)
         if 'cid' not in param_dict:
             response["message"] = "Parameter missing cid."
             return send_400(response)
@@ -70,14 +70,14 @@ def login(func):
             response["message"] = "Parameter missing token"
             return send_400(response)
         
-        cid = response.get('cid')
-        token = response.get('token')
+        cid = param_dict.get('cid')
+        token = param_dict.get('token')
 
-        stored_id = get_token(token)
-        if (not stored_id < 0) and (stored_id == cid):
-            refresh_token(token)
+        stored_id = get_token(cid)
+        if (not stored_id < 0) and (stored_id == token):
+            refresh_token(cid)
         else:
             response["message"] = "Unauthorized"
             return send_401(response)
-        return func(request, *args, **kwargs)
+        return func(self, request, *args, **kwargs)
     return inner

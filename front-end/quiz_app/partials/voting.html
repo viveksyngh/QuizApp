@@ -1,0 +1,40 @@
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+         <a class="navbar-brand" href="#/">Quiz App</a>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/">Home</a></li>
+          </ul>
+           <ul class="nav navbar-nav navbar-right">
+           	<li><a href="#/logout">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+    </nav>
+    <br>
+    <br>
+<div class="container">
+	<div class="question-block col-sm-offset-4">
+		<form name="questionForm" ng-submit="votingCtrl.voteQuestion(votingCtrl.optionSelected)">
+			<strong><span>Question: {{question.question}}</span></strong>
+			<div class="radio" ng-repeat="option in question.options">
+  				<label>
+    				<input type="radio" name="optionsRadios" id="optionsRadios{{option.id}}" 
+    				value="{{option.id}}" ng-model="votingCtrl.optionSelected">
+    				{{option.option}}
+  				</label>
+			</div>
+          	<div class="form-group last">
+            	<div class="col-sm-offset-3 col-sm-9">
+              		<button type="submit" class="btn btn-success">Vote</button>
+            	</div>
+          	</div>
+          	<br>
+          	<br>
+            <div class="alert alert-success col-sm-6" ng-show="success">
+                    {{message}}
+            </div>
+            <div class="alert alert-danger col-sm-6" ng-show="error">
+                    {{message}}
+            </div>
+		</form>
+	</div>
+</div>

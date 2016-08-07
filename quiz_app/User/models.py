@@ -17,3 +17,12 @@ class User(models.Model):
         return self.first_name + ' ' + self.last_name + ' ' + self.email_id + \
                 self.mobile_no
 
+    def serializer(self):
+        user = {}
+        user["first_name"] = self.first_name
+        user["last_name"] = self.last_name
+        user["middle_name"] = self.middle_name
+        user["email_id"] = self.email_id
+        user["mobile_no"] = self.mobile_no
+        return user
+
