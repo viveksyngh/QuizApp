@@ -4,6 +4,7 @@ from quiz_app.utils import login, send_400, send_404, send_200
 import json
 from quiz_app.settings import API_HOME
 from models import (Question, Option, Vote)
+from django.db.models import Count
 
 # Create your views here.
 
@@ -76,6 +77,10 @@ class QuestionView(View):
     def get(self, request, *args, **kwargs):
         cid = request.GET.get('cid')
         options = Option.objects.select_related('question').filter(question__user_id=cid)
+        votes = Vote.objects.values('option_id').annotate(vote_count=Count('vote_id'))
+        vote_count_map = {}
+        for vote in votes:
+             vote_count_map[vote['option_id']] = vote['vote_count']
         questions = {}
         for option in options:
             key = option.question_id
@@ -86,7 +91,9 @@ class QuestionView(View):
                     'options': []
                 }
                 questions[key] = item
-            questions[key]["options"].append(option.serializer())
+            opt = option.serializer()
+            opt["vote_count"] = vote_count_map.get(opt["id"], 0)
+            questions[key]["options"].append(opt)
         self.response["message"] = "Question details received successfully."
         self.response["result"]["questions"] = questions
         return send_200(self.response)
