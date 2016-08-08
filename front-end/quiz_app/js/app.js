@@ -99,7 +99,7 @@ var mainUrl  = "http://localhost:8000/#/"
 
             $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8001/quiz/v1/questions/',
+                url: 'http://127.0.0.1:8080/quiz/v1/questions/',
                 data: 'cid=' + $localStorage.cid + 
                       '&token=' + $localStorage.token + 
                       '&question_text=' + $scope.questionText + 
@@ -142,7 +142,7 @@ var mainUrl  = "http://localhost:8000/#/"
         this.questions = function() {            
             $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8001/quiz/v1/questions/?' + 
+                url: 'http://127.0.0.1:8080/quiz/v1/questions/?' + 
                      'cid=' + $localStorage.cid + '&token=' + $localStorage.token,
                 data: {},
                 headers: {
@@ -193,7 +193,7 @@ var mainUrl  = "http://localhost:8000/#/"
         this.getVotes = function() {            
             $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8001/quiz/v1/votes/?' + 
+                url: 'http://127.0.0.1:8080/quiz/v1/votes/?' + 
                      'cid=' + $localStorage.cid + '&token=' + $localStorage.token,
                 data: {},
                 headers: {
@@ -240,7 +240,7 @@ var mainUrl  = "http://localhost:8000/#/"
         this.getQuestion = function(question_id) {
             $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8001/quiz/v1/questions/' + $scope.question_id + '/?'+
+                url: 'http://127.0.0.1:8080/quiz/v1/questions/' + $scope.question_id + '/?'+
                      'cid=' + $localStorage.cid + '&token=' + $localStorage.token,
                 data: {},
                 headers: {
@@ -274,7 +274,7 @@ var mainUrl  = "http://localhost:8000/#/"
         this.voteQuestion = function(option_id) {
             $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8001/quiz/v1/votes/',
+                url: 'http://127.0.0.1:8080/quiz/v1/votes/',
                 data: 'question_id='+ $scope.question_id +
                       '&option_id='+ option_id +
                       '&cid=' + $localStorage.cid + 
@@ -323,7 +323,7 @@ var mainUrl  = "http://localhost:8000/#/"
         this.register = function(formData) {
             $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8001/user/v1/register/',
+                url: 'http://127.0.0.1:8080/user/v1/register/',
                 data: 'first_name=' + formData.first_name + 
                       '&middle_name=' + formData.middle_name + 
                       '&last_name=' + formData.last_name + 
@@ -358,7 +358,7 @@ var mainUrl  = "http://localhost:8000/#/"
           
             $http({
                 method: 'POST',
-                url: 'http://127.0.0.1:8001/user/v1/login/',
+                url: 'http://127.0.0.1:8080/user/v1/login/',
                 data: 'email_id=' + email_id + 
                     '&password=' + password,
                 headers: {

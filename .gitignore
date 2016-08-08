@@ -1,6 +1,7 @@
 quiz_app/*/migrations/*
 quiz_app/quiz_app/server_config.py
 quiz_app/hme/*
+quiz_app/venv/*
 *.pyc
 .*.swp
 .*.rdb
