@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import View
-from quiz_app.utils import login, send_400, send_404, send_200
+from quiz_app.utils import(login, send_400, send_404, send_200,
+                           create_index_in_elastic_search, INDEX_NAME,
+                           DOC_TYPE)
 import json
 from quiz_app.settings import API_HOME
 from models import (Question, Option, Vote)
 from django.db.models import Count
+
 
 # Create your views here.
 
@@ -70,6 +73,7 @@ class QuestionView(View):
         self.response["message"] = "Question created successfully."
         self.response["result"]["url"] = ques_url
         self.response["result"]["question_id"] = question.question_id
+        create_index_in_elastic_search(question.serializer(), question.question_id)
         return send_200(self.response)
 
 

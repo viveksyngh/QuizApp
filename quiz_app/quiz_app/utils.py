@@ -3,6 +3,8 @@ from django.http.response import JsonResponse
 from datetime import datetime, timedelta
 import json
 from redis_utils import get_token, refresh_token
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search
 
 def gen_password_hash(passwd):
     return str(hashlib.sha256(passwd).hexdigest())
@@ -81,3 +83,21 @@ def login(func):
             return send_401(response)
         return func(self, request, *args, **kwargs)
     return inner
+
+
+INDEX_NAME = 'quiz'
+DOC_TYPE = 'questions'
+
+
+def create_index_in_elastic_search(body, id):
+    es = Elasticsearch()
+    es.create(index=INDEX_NAME, doc_type=DOC_TYPE, body=body, id=id)
+
+def search_in_elastic(search_text):
+    client = Elasticsearch()
+    s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).\
+        query("match", question=search_text)
+    result = s.execute()
+    return result
+
+
