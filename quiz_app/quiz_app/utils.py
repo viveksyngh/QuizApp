@@ -95,8 +95,10 @@ def create_index_in_elastic_search(body, id):
 
 def search_in_elastic(search_text):
     client = Elasticsearch()
-    s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).\
-        query("match", question=search_text)
+    if search_text.strip() == '':
+        s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query()
+    else:     
+        s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query("match", question=search_text)
     result = s.execute()
     return result
 

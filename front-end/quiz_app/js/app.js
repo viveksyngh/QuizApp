@@ -50,6 +50,11 @@ var apiHome = "http://localhost:8080"
                 controller: 'logoutController',
                 controllerAs: 'logoutCtrl'
             })
+            .when('/search', {
+                templateUrl: 'partials/search.html',
+                controller: 'searchController',
+                controllerAs: 'searchCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             })
@@ -398,4 +403,62 @@ var apiHome = "http://localhost:8080"
             else {
                $location.path('/login');
             }
+    });
+
+    app.controller('searchController', function($scope, $http, $location, $localStorage){
+        
+        $scope.search_text = '';
+        $scope.questions = [];
+        
+
+        this.search = function(search_text) {
+            console.log(search_text);       
+            $http({
+                method: 'GET',
+                url: apiHome + '/quiz/v1/search/?' + 
+                     'cid=' + $localStorage.cid + '&token=' + $localStorage.token + 
+                     '&search_text=' + search_text,
+                data: {},
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                 },
+                }).then(function successCallback(response) {
+                    console.log("Success");
+                    $scope.success = true;
+                    $scope.message = response.data.message;
+                    $scope.questions = response.data.result.question_list;
+                    console.log(response.data.result);
+                    console.log(response.data);
+
+                  }, function errorCallback(response) {
+                    console.log("Error");
+                    $scope.error = true;
+                    if(response.status == '401') {
+                        
+                        delete $localStorage.cid;
+                        delete $localStorage.token;
+                        $location.path("/login");
+                    }
+                    $scope.message = response.data.message;
+                    console.log(response.data);
+                 });
+            };
+
+
+        $scope.$watch("search_text", function(){
+            this.search($scope.search_text);
+        });
+
+        this.abc = function() {
+            console.log("abc");
+        };
+
+        if ($localStorage.cid && $localStorage.token) {
+            this.search($scope.search_text);
+        }
+        else {
+             $location.path("/login");
+        }
+
+
     });

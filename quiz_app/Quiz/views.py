@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from quiz_app.utils import(login, send_400, send_404, send_200,
                            create_index_in_elastic_search, INDEX_NAME,
-                           DOC_TYPE)
+                           DOC_TYPE, search_in_elastic)
 import json
 from quiz_app.settings import API_HOME
 from models import (Question, Option, Vote)
@@ -185,4 +185,38 @@ class VoteView(View):
             vote_list.append(value)
         self.response["message"] = "Data received successfully."
         self.response["result"]["votes"] = vote_list
+        return send_200(self.response)
+
+
+class SearchQuestions(View):
+    
+    def __init__(self):
+        """Initializes the view object and response variable."""
+        self.response = {
+            'message': '',
+            'result': {}
+        }
+
+    def dispatch(self, request, *args, **kwargs):
+        """Relay the request to corresponding method if it is defined"""
+        return super(SearchQuestions, self).dispatch(request, *args, **kwargs)
+
+    @login
+    def get(self, request):
+        search_text = request.GET["search_text"]
+        results = search_in_elastic(search_text)
+        question_list = []
+        for res in results:
+            # ques = {}
+            # ques["question_text"] = res.question
+            # ques["options"] = []
+            # for option in res.options:
+            #     opt = {}
+            #     opt["id"] = option.id
+            #     opt["option"] = option.option
+            #     ques["options"].append(opt)
+            # ques["id"] = res.id
+            question_list.append(res.to_dict())
+        self.response["message"] = "Data received successfully."
+        self.response["result"]["question_list"] = question_list
         return send_200(self.response)
