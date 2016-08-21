@@ -22,7 +22,8 @@
           <input type="text" class="form-control" placeholder="Search for..." ng-model="searchCtrl.search_text"
           required/>
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">Go!</button>
+            <button class="btn btn-info" type="submit">Go!</button>
+            <button class="btn btn-danger" type="button" ng-click="searchCtrl.search(''); searchCtrl.search_text=''">Clear</button>
           </span>
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->

@@ -100,7 +100,7 @@ def search_in_elastic(search_text):
     else:     
         s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query("fuzzy", question=search_text)
     result = s.execute()
-    print redis_utils
+    print result
     return result
 
 
