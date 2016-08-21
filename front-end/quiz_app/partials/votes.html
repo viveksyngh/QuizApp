@@ -13,7 +13,14 @@
       </ul>
     </div><!--/.nav-collapse -->
 </nav>
-<div class="container">
+<div ng-show="!{{questions.length}}">
+  <h4 class="text-center"> You have not recieved any votes. Share links of questions with your friends to receive votes.
+  </h4>
+  <h4 class="text-center">
+  Click <a href="#/">here </a> to create a question and share with your friends.
+  </h4>
+</div>
+<div class="container" ng-show="{{votes.length}}">
   <table class="table table-bordered">
     <tr>
       <th> Question </th>

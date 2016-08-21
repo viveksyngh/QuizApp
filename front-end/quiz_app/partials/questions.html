@@ -16,6 +16,9 @@
     <div class="container">
     <br/>
     <br/>
+      <div ng-show="!{{questions.length}}">
+        <h4 class="text-center"> You have not created any question. Click <a href="#/">here </a> to create a question and share with your friends.</h4>
+      </div>
       <ol>
         <li ng-repeat="question in questions">
           <div class="question-block">

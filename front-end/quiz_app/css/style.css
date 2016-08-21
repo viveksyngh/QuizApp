@@ -1,10 +1,20 @@
 .ng-invalid.ng-dirty {
-  border-color: red;
+  border-color: #d9534f;
 }
 .ng-valid.ng-dirty {
-  border-color: green
+  border-color: #5cb85c;
 }
 
 .forms {
 	margin-top: 150px;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.text-error {
+
+		margin-top: 40px;
+		margin-bottom: -5px;
 }

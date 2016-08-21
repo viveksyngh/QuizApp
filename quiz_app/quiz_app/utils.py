@@ -98,8 +98,9 @@ def search_in_elastic(search_text):
     if search_text.strip() == '':
         s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query()
     else:     
-        s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query("match", question=search_text)
+        s = Search(index=INDEX_NAME, doc_type=DOC_TYPE).using(client).query("fuzzy", question=search_text)
     result = s.execute()
+    print redis_utils
     return result
 
 

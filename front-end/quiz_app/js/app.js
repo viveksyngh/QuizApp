@@ -1,8 +1,10 @@
 'use strict';
-var app = angular.module('quiz_app', ['ngRoute', 'ngStorage']);
+var app = angular.module('quiz_app', ['ngRoute', 'ngStorage', 'ngMessages']);
 
-var mainUrl = "http://52.91.83.213/#/"
-var apiHome = "http://52.91.83.213:8080"
+var mainUrl = "http://52.91.83.213/#/";
+var apiHome = "http://52.91.83.213:8080";
+//var apiHome = "http://127.0.0.1:8080";
+
 // app.run(function($rootScope){
 //     $rootScope = {};
 // });
@@ -462,3 +464,20 @@ var apiHome = "http://52.91.83.213:8080"
 
 
     });
+
+
+
+app.directive('pwCheck', [function () {
+    return {
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ctrl) {
+        var firstPassword = '#' + attrs.pwCheck;
+        elem.add(firstPassword).on('keyup', function () {
+          scope.$apply(function () {
+            var v = elem.val()===$(firstPassword).val();
+            ctrl.$setValidity('pwmatch', v);
+          });
+        });
+      }
+    }
+  }]);

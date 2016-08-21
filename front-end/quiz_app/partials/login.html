@@ -12,14 +12,24 @@
                         <label for="inputEmail3" class="col-sm-3 control-label">
                             Email</label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="loginCtrl.email" required/>
+                            <input type="email" class="form-control" id="inputEmail3" name="inputEmail3" placeholder="Email" ng-model="loginCtrl.email" required/>
+                        </div>
+                        <div ng-messages="loginForm.inputEmail3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="email" class="text-danger text-center text-error">Not a valid email id.</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Email ength must be less than 100.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">
                             Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="loginCtrl.password" required="required"/>
+                            <input type="password" class="form-control" id="inputPassword3" name="inputPassword3" placeholder="Password" ng-model="loginCtrl.password" required="required"/>
+                        </div>
+                        <div ng-messages="loginForm.inputPassword3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Password length must be greater than or equal to 5.</div>
+                            <div ng-message="minlength" class="text-danger text-center text-error">Password length must be less than or equal to 20.</div>
                         </div>
                     </div>
                     <!--<div class="form-group">

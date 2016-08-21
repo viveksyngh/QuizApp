@@ -12,7 +12,11 @@
                         <label for="inputFname3" class="col-sm-3 control-label">
                             First name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputFname3" placeholder="First name" ng-model="regCtrl.formData.first_name" ng-minlength="1" ng-maxlength="100" required="required"/>
+                            <input type="text" class="form-control" id="inputFname3" name="inputFname3" placeholder="First name" ng-model="regCtrl.formData.first_name" ng-minlength="1" ng-maxlength="100" required="required"/>
+                        </div>
+                        <div ng-messages="regForm.inputFname3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">First name length must be less than 100.</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -26,36 +30,64 @@
                         <label for="inputLname3" class="col-sm-3 control-label">
                             Last name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputLname3" placeholder="Last name" ng-model="regCtrl.formData.last_name" ng-minlength="1" ng-maxlength="100" required="required"/>
+                            <input type="text" class="form-control" id="inputLname3" name="inputLname3" placeholder="Last name" ng-model="regCtrl.formData.last_name" ng-minlength="1" ng-maxlength="100" required="required"/>
+                        </div>
+                        <div ng-messages="regForm.inputLname3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Last name length must be less than 100.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">
                             Email</label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="regCtrl.formData.email_id" ng-maxlength="100" required="required"/>
+                            <input type="email" class="form-control" id="inputEmail3" name="inputEmail3" placeholder="Email" ng-model="regCtrl.formData.email_id" ng-maxlength="100" required="required"/>
+                        </div>
+                        <div ng-messages="regForm.inputEmail3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="email" class="text-danger text-center text-error">Not a valid email id.</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Email length must be less than 100.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputMobile3" class="col-sm-3 control-label">
                             Mobile</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputMobile3" placeholder="Mobile" ng-model="regCtrl.formData.mobile_no" ng-minlength="10" ng-maxlength="10" required="required"/>
+                            <input type="text" class="form-control" id="inputMobile3" name="inputMobile3" placeholder="Mobile" ng-model="regCtrl.formData.mobile_no" ng-minlength="10" ng-maxlength="10" required="required"/>
+                        </div>
+                        <div ng-messages="regForm.inputMobile3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Mobile number is invalid.</div>
+                            <div ng-message="minlength" class="text-danger text-center text-error">Mobile number is invalid.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">
                             Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" ng-model="regCtrl.formData.password" required="required"/>
+                            <input type="password" class="form-control" id="inputPassword3" name="inputPassword3" placeholder="Password" ng-model="regCtrl.formData.password" ng-minlength="5" ng-maxlength="20" required="required"/>
+                        </div>
+                        <div ng-messages="regForm.inputPassword3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center text-error">This field is required</div>
+                            <div ng-message="maxlength" class="text-danger text-center text-error">Password length must be greater than or equal to 5.</div>
+                            <div ng-message="minlength" class="text-danger text-center text-error">Password length must be less than or equal to 20.</div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputCPassword3" class="col-sm-3 control-label">
                             Confirm password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputCPassword3" placeholder="Confirm password" ng-model="regCtrl.confirmPassword" pw-check="regCtrl.formData.password" required="required"/>
+                            <input type="password" class="form-control" id="inputCPassword3" name="inputCPassword3" placeholder="Confirm password" ng-model="regCtrl.confirmPassword" required="required" 
+                            pw-check="inputPassword3"/>
                         </div>
+                        <div class='text-danger text-center' ng-show='regForm.$error'>
+                            <span class='text-danger text-center text-error' ng-show='regForm.inputCPassword3.$error.pwmatch'>
+                                Passwords don't match.
+                            </span>
+                        </div>
+<!--                         <div ng-messages="regForm.inputPassword3.$error" role='alert'>
+                            <div ng-message="required" class="text-danger text-center">This field is required.</div>
+                        </div> -->
                     </div>
                     <!--<div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
