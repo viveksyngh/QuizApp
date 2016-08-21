@@ -1,8 +1,8 @@
 'use strict';
 var app = angular.module('quiz_app', ['ngRoute', 'ngStorage']);
 
-var mainUrl = "http://localhost:8000/#/"
-var apiHome = "http://localhost:8080"
+var mainUrl = "http://52.91.83.213/#/"
+var apiHome = "http://52.91.83.213:8080"
 // app.run(function($rootScope){
 //     $rootScope = {};
 // });
@@ -292,7 +292,7 @@ var apiHome = "http://localhost:8080"
                     $scope.success = true;
                     $scope.error = false;
                     $scope.message = response.data.message;
-                    delete $localStorage.cid;
+                    delete $localStorage.question_id;
                     $location.path("/");
 
                   }, function errorCallback(response) {
